@@ -59,8 +59,11 @@ export class AppComponent {
     const item = form._directives[i];
     if (item) { ///se existe dados
 
-      const limite = action.percentual * (this.investimento.saldoTotalDisponivel / 100);
+      let limite: any = action.percentual * (this.investimento.saldoTotalDisponivel / 100);
+      limite = limite.toFixed(2);
       const value = item.value ?? 0;
+      console.log(limite);
+      console.log(value);
       error = item.touched && value > limite ? true : false;
 
     }
@@ -76,7 +79,7 @@ export class AppComponent {
       return;
     }
 
-    console.log(this.investimento);
+    // console.log(this.investimento);
 
     this.confirmResgate();
   }
@@ -89,7 +92,8 @@ export class AppComponent {
 
     for (let action of this.investimento.acoes) {
       if (action.valorResgate) {
-        const limite = action.percentual * (this.investimento.saldoTotalDisponivel / 100);
+        let limite: any = action.percentual * (this.investimento.saldoTotalDisponivel / 100);
+        limite = limite.toFixed(2);
 
         if (action.valorResgate > limite) {
           return false;
